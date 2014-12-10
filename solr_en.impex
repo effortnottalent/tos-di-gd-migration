@@ -1,0 +1,59 @@
+$catalog-id=gdProductCatalog
+$catalog-version=Staged
+
+$catalogVersions=catalogVersions(catalog(id),version);
+$serverConfigName=gdSolrServerConfig
+$indexConfigName=gdSolrIndexConfig
+$searchConfigName=gdPageSize
+$facetSearchConfigName=gdIndex
+$facetSearchConfigDescription=GD Solr Index
+$searchIndexNamePrefix=gd
+$solrIndexedType=gdProductType
+$indexBaseSite=gd
+$indexLanguages=en
+$indexCurrencies=USD
+$europe1pricefactory_ptg=Europe1PriceFactory_PTG(code)[default=us-sales-tax-full]
+
+#
+# Setup the Solr server, indexer, and search configs
+#
+
+# Create the solr server configuration
+INSERT_UPDATE SolrServerConfig;name[unique=true];mode(code);embeddedMaster
+;$serverConfigName;embedded;true
+
+# Create the solr indexer configuration
+INSERT_UPDATE SolrIndexConfig;name[unique=true];batchSize;numberOfThreads;indexMode(code);
+;$indexConfigName;100;1;TWO_PHASE;
+
+# Create the faceted search configuration
+INSERT_UPDATE SolrSearchConfig;description[unique=true];pageSize
+;$searchConfigName;20
+
+#
+# Setup the indexed types, their properties, and the update queries
+#
+
+# Declare the indexed type Product
+INSERT_UPDATE SolrIndexedType;identifier[unique=true];type(code);variant
+#;sorts(&sortRefID)
+;$solrIndexedType;Product;false
+#;sortRef1,sortRef2,sortRef3,sortRef4,sortRef5,sortRef6
+
+INSERT_UPDATE SolrFacetSearchConfig;name[unique=true];description;indexNamePrefix;languages(isocode);currencies(isocode);solrServerConfig(name);solrSearchConfig(description);solrIndexConfig(name);solrIndexedTypes(identifier);$catalogVersions
+;$facetSearchConfigName;$facetSearchConfigDescription;$searchIndexNamePrefix;$indexLanguages;$indexCurrencies;$serverConfigName;$searchConfigName;$indexConfigName;$solrIndexedType;$catalog-id:Online,$catalog-id:Staged
+
+#UPDATE BaseSite;uid[unique=true];solrFacetSearchConfiguration(name)
+#;$indexBaseSite;$facetSearchConfigName
+
+# Define the available sorts
+#INSERT_UPDATE SolrSort;&sortRefID;indexedType(identifier)[unique=true];code[unique=true]
+#;sortRef0;$solrIndexedType;stockAvailability
+#;sortRef1;$solrIndexedType;relevance
+#;sortRef2;$solrIndexedType;topRated
+#;sortRef3;$solrIndexedType;name-asc
+#;sortRef4;$solrIndexedType;name-desc
+#;sortRef5;$solrIndexedType;price-asc
+#;sortRef6;$solrIndexedType;price-desc
+
+$de.hybris.platform.core.Registry.getApplicationContext().getBean(de.hybris.platform.validation.services.ValidationService.class).reloadValidationEngine()

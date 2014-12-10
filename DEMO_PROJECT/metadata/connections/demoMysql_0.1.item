@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org/metadata/connection/2010" xmlns:orgomg.cwm.resource.relational="http:///orgomg/cwm/resource/relational.ecore" xmlns:relational="http://www.talend.org/cwm/resource/relational/2010">
+  <TalendMetadata:DatabaseConnection xmi:id="_xx3tgGD7EeCFQbmPuExx4A" name="demoMysql" id="_agCZsMvyEdu0-pmJiEk0sg" label="demoMysql" dataPackage="_7gXL4GmNEeSX0o7xzll8MA _xyZ5AGD7EeCFQbmPuExx4A" DatabaseType="MySQL" DriverClass="org.gjt.mm.mysql.Driver" URL="jdbc:mysql://localhost:3306/products_live?prompt=false" dbVersionString="MYSQL_5" Port="3306" Username="root" Password="BkaRFJw+Niv4EiCuQCx34Q==" ServerName="localhost" DatasourceName="" FileFieldName="D:/TOS-All-r8623-V2.3.0/workspace/talend.db" SID="products_live" SqlSynthax="SQL Syntax" DbmsId="mysql_id" ProductId="MYSQL" DBRootPath="" AdditionalParams="prompt=false" StandardSQL="true" SQLMode="true" UiSchema="">
+    <taggedValue xmi:id="_qQt4MGQrEeSnjcvrVkFNdQ" tag="Is Conn Need Reload" value="true"/>
+    <taggedValue xmi:id="_wheroGQrEeSnjcvrVkFNdQ" tag="Status" value=""/>
+    <taggedValue xmi:id="_wheroWQrEeSnjcvrVkFNdQ" tag="Version" value="0.1"/>
+    <taggedValue xmi:id="_wheromQrEeSnjcvrVkFNdQ" tag="Purpose" value=""/>
+    <taggedValue xmi:id="_whero2QrEeSnjcvrVkFNdQ" tag="Description" value=""/>
+    <taggedValue xmi:id="_wherpGQrEeSnjcvrVkFNdQ" tag="Author" value=""/>
+    <taggedValue xmi:id="_wherpWQrEeSnjcvrVkFNdQ" tag="otherParameter"/>
+    <taggedValue xmi:id="_whi9EGQrEeSnjcvrVkFNdQ" tag="DB ProductName" value="MySQL"/>
+    <taggedValue xmi:id="_whi9EWQrEeSnjcvrVkFNdQ" tag="DB ProductVersion" value="5.5.37-35.0"/>
+    <taggedValue xmi:id="_whi9EmQrEeSnjcvrVkFNdQ" tag="DB IdentifierQuoteString" value="`"/>
+  </TalendMetadata:DatabaseConnection>
+  <orgomg.cwm.resource.relational:Catalog xmi:id="_7gXL4GmNEeSX0o7xzll8MA" name="products_live" dataManager="_xx3tgGD7EeCFQbmPuExx4A"/>
+  <orgomg.cwm.resource.relational:Catalog xmi:id="_xyZ5AGD7EeCFQbmPuExx4A" name="demoproject" dataManager="_xx3tgGD7EeCFQbmPuExx4A">
+    <ownedElement xsi:type="relational:TdTable" xmi:id="_xx0DIGD7EeCFQbmPuExx4A" name="state" id="_OTNUcDDqEd-mKPO5-zpv7Q" label="state" tableType="TABLE">
+      <feature xsi:type="relational:TdColumn" xmi:id="_xxyN8GD7EeCFQbmPuExx4A" name="idusstate" label="idusstate" length="10" sourceType="INT" talendType="id_Integer" key="true" nullable="false">
+        <initialValue xmi:id="_xxy1AGD7EeCFQbmPuExx4A" body="&quot;0&quot;"/>
+        <sqlDataType xmi:id="_yBe20GD7EeCFQbmPuExx4A" name="NULL"/>
+      </feature>
+      <feature xsi:type="relational:TdColumn" xmi:id="_xxzcEGD7EeCFQbmPuExx4A" name="usstatename" label="usstatename" length="255" sourceType="VARCHAR" talendType="id_String">
+        <initialValue xmi:id="_xxzcEWD7EeCFQbmPuExx4A" body=""/>
+        <sqlDataType xmi:id="_yBe20WD7EeCFQbmPuExx4A" name="NULL"/>
+      </feature>
+    </ownedElement>
+    <ownedElement xsi:type="relational:TdTable" xmi:id="_xx3GcGD7EeCFQbmPuExx4A" name="customer" id="_OfCJ8DDqEd-mKPO5-zpv7Q" label="customer" tableType="TABLE">
+      <feature xsi:type="relational:TdColumn" xmi:id="_xxzcEmD7EeCFQbmPuExx4A" name="idcustomer" label="idcustomer" length="10" sourceType="INT" talendType="id_Integer">
+        <initialValue xmi:id="_xxzcE2D7EeCFQbmPuExx4A" body=""/>
+        <sqlDataType xmi:id="_yBe20mD7EeCFQbmPuExx4A" name="NULL"/>
+      </feature>
+      <feature xsi:type="relational:TdColumn" xmi:id="_xxzcFGD7EeCFQbmPuExx4A" name="customername" label="customername" length="255" sourceType="VARCHAR" talendType="id_String">
+        <initialValue xmi:id="_xxzcFWD7EeCFQbmPuExx4A" body=""/>
+        <sqlDataType xmi:id="_yBe202D7EeCFQbmPuExx4A" name="NULL"/>
+      </feature>
+      <feature xsi:type="relational:TdColumn" xmi:id="_xxzcFmD7EeCFQbmPuExx4A" name="idusstate" label="idusstate" length="10" sourceType="INT" talendType="id_Integer">
+        <initialValue xmi:id="_xxzcF2D7EeCFQbmPuExx4A" body=""/>
+        <sqlDataType xmi:id="_yBe21GD7EeCFQbmPuExx4A" name="NULL"/>
+      </feature>
+    </ownedElement>
+  </orgomg.cwm.resource.relational:Catalog>
+</xmi:XMI>

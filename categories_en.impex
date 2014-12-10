@@ -1,0 +1,314 @@
+$productCatalog=gdProductCatalog
+$productCatalogName=GD Product Catalog
+$classificationName=GDClassification
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default=$classificationName]),version[default=1.0])
+$classSystemVersion=systemVersion(catalog(id[default=$classificationName]),version[default=1.0])
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+
+INSERT_UPDATE Catalog;id[unique=true];name
+;$productCatalog;$productCatalogName
+
+INSERT_UPDATE CatalogVersion;version[unique=true];active;catalog(id)[unique=true,forceWrite=true,allownull=true]
+;Staged;false;$productCatalog
+;Online;true;$productCatalog
+
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;name;description
+;gdcat-frames;;GD Frames;
+;gdcat-lenses;;GD Lenses;
+;gdcat-tints;;GD Tints;
+;gdcat-coatings;;GD Coatings;
+;gdcat-cases;;GD Cases;
+;gdcat-accs;;GD Accessories;
+;gdcat-suns;;GD Sunglasses;
+;gdcat-cls;;GD Contact Lenses;
+;gdcat-base;;GD Product;
+;gdcat-category;;Category;
+;gdcat-sunglassurl;;Sunglasses Category;
+;gdcat-brand;;Brand;
+
+INSERT_UPDATE ClassificationSystem;activeCatalogVersion(catalog(id),version[default='1.0']);id[unique=true,allownull=true]
+;$classificationName;$classificationName
+
+insert_update ClassificationSystemVersion;active[allownull=true];catalog(id)[unique=true,forceWrite=true,allownull=true];version[unique=true,allownull=true]
+;true;GDClassification;1.0
+
+INSERT_UPDATE ClassificationClass;$classCatalogVersion;code[unique=true];name
+;;gdcls-base;Base Information
+;;gdcls-contact-lens;Contact Lens
+;;gdcls-cross-selling;Cross-selling
+;;gdcls-frame-dimensions;Frame Dimensions
+;;gdcls-supply-chain;Supply Chain Information
+;;gdcls-shipping;Shipping Information
+;;gdcls-lens-features;Lens Features
+;;gdcls-sunglasses-features;Sunglasses Features
+
+insert_update CategoryCategoryRelation;source(catalogVersion(catalog(id),version),code)[unique=true,allownull=true];target(catalogVersion(catalog(id),version),code)[unique=true,allownull=true]
+;$classificationName:1.0:gdcls-base;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-weight-dims;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-physical-attrs;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-online;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-supplychain;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-reporting;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-dimensions;$productCatalog:Staged:gdcat-frames
+;$classificationName:1.0:gdcls-tints;$productCatalog:Staged:gdcat-tints
+;$classificationName:1.0:gdcls-coatings;$productCatalog:Staged:gdcat-coatings
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-frames
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-lenses
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-tints
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-coatings
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-suns
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-cls
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-accs
+
+INSERT_UPDATE ClassificationAttribute;$classSystemVersion;code[unique=true];name
+;;gdca-skus;Skus
+;;gdca-box-height;Box height
+;;gdca-box-width;Box width
+;;gdca-box-depth;Box depth
+;;gdca-box-weight;Box weight
+;;gdca-manufacturer-colour;Manufacturer colour
+;;gdca-base-colour;Base colour
+;;gdca-descriptive-colour;Descriptive colour
+;;gdca-lens-diameter;Lens diameter
+;;gdca-arm-length;Arm length
+;;gdca-bridge-width;Bridge width
+;;gdca-frame-width;Frame width
+;;gdca-frame-depth;Frame depth
+;;gdca-lens-type;Lens type
+;;gdca-lens-vision;Lens vision
+;;gdca-sunglass-lens-tint-type-;Sunglass lens tint type 
+;;gdca-lens-uv-rating;Lens UV rating
+;;gdca-lens-uv-rating;Lens UV rating
+;;gdca-lens-colour;Lens colour
+;;gdca-lens-colour;Lens colour
+;;gdca-lens-material;Lens material
+;;gdca-lens-material;Lens material
+;;gdca-package-size;Package size
+;;gdca-rrp;rrp
+;;gdca-cost-price;cost price
+;;gdca-sgs-cost-price;SGS cost price
+;;gdca-vendor-name-and-vendor-code;vendor name and vendor code
+;;gdca-blended-cost-price;Blended cost price
+;;gdca-cross-selling-hints;Cross-selling hints
+;;gdca-weco-frame-id;WECO frame id
+;;gdca-channel-metadata;Channel metadata
+;;gdca-client-availability;Client availability
+;;gdca-hazard-information;Hazard information
+;;gdca-customs-info;Customs info
+;;gdca-country-of-origin;Country of origin
+;;gdca-fda-registered;FDA registered
+;;gdca-material-composition;Material composition
+;;gdca-shipping-restrictions;Shipping restrictions
+;;gdca-contact-lens-spherical-range;Contact lens spherical range
+;;gdca-contact-lens-cylindrical-range;Contact lens cylindrical range
+;;gdca-contact-lens-axis-range;Contact lens axis range
+;;gdca-contact-lens-wear-life;Contact lens wear life
+;;gdca-contact-lens-corrective-features;Contact lens corrective features
+;;gdca-contact-lens-diameter;Contact lens diameter
+;;gdca-number-of-items-per-product;Number of items per product
+;;gdca-contact-lens-material;Contact Lens material
+;;gdca-home-trial-threshold;Home trial threshold
+
+$productCatalog=gdProductCatalog
+$productCatalogName=GD Product Catalog
+$classificationName=GDClassification
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default=$classificationName]),version[default=1.0])
+$classSystemVersion=systemVersion(catalog(id[default=$classificationName]),version[default=1.0])
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+
+INSERT_UPDATE Catalog;id[unique=true];name
+;$productCatalog;$productCatalogName
+
+INSERT_UPDATE CatalogVersion;version[unique=true];active;catalog(id)[unique=true,forceWrite=true,allownull=true]
+;Staged;false;$productCatalog
+;Online;true;$productCatalog
+
+INSERT_UPDATE Category;code[unique=true];$catalogVersion;name;description
+;gdcat-frames;;GD Frames;
+;gdcat-lenses;;GD Lenses;
+;gdcat-tints;;GD Tints;
+;gdcat-coatings;;GD Coatings;
+;gdcat-cases;;GD Cases;
+;gdcat-accs;;GD Accessories;
+;gdcat-suns;;GD Sunglasses;
+;gdcat-cls;;GD Contact Lenses;
+;gdcat-base;;GD Product;
+;gdcat-category;;Category;
+;gdcat-sunglassurl;;Sunglasses Category;
+;gdcat-brand;;Brand;
+
+INSERT_UPDATE ClassificationSystem;activeCatalogVersion(catalog(id),version[default='1.0']);id[unique=true,allownull=true]
+;$classificationName;$classificationName
+
+insert_update ClassificationSystemVersion;active[allownull=true];catalog(id)[unique=true,forceWrite=true,allownull=true];version[unique=true,allownull=true]
+;true;GDClassification;1.0
+
+INSERT_UPDATE ClassificationClass;$classCatalogVersion;code[unique=true];name
+;;gdcls-base;Base Information
+;;gdcls-contact-lens;Contact Lens
+;;gdcls-cross-selling;Cross-selling
+;;gdcls-frame-dimensions;Frame Dimensions
+;;gdcls-supply-chain;Supply Chain Information
+;;gdcls-shipping;Shipping Information
+;;gdcls-lens-features;Lens Features
+;;gdcls-sunglasses-features;Sunglasses Features
+
+insert_update CategoryCategoryRelation;source(catalogVersion(catalog(id),version),code)[unique=true,allownull=true];target(catalogVersion(catalog(id),version),code)[unique=true,allownull=true]
+;$classificationName:1.0:gdcls-base;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-weight-dims;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-physical-attrs;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-online;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-supplychain;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-reporting;$productCatalog:Staged:gdcat-base
+;$classificationName:1.0:gdcls-dimensions;$productCatalog:Staged:gdcat-frames
+;$classificationName:1.0:gdcls-tints;$productCatalog:Staged:gdcat-tints
+;$classificationName:1.0:gdcls-coatings;$productCatalog:Staged:gdcat-coatings
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-frames
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-lenses
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-tints
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-coatings
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-suns
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-cls
+;$productCatalog:Staged:gdcat-base;$productCatalog:Staged:gdcat-accs
+
+INSERT_UPDATE ClassificationAttribute;$classSystemVersion;code[unique=true];name
+;;gdca-skus;Skus
+;;gdca-box-height;Box height
+;;gdca-box-width;Box width
+;;gdca-box-depth;Box depth
+;;gdca-box-weight;Box weight
+;;gdca-manufacturer-colour;Manufacturer colour
+;;gdca-base-colour;Base colour
+;;gdca-descriptive-colour;Descriptive colour
+;;gdca-lens-diameter;Lens diameter
+;;gdca-arm-length;Arm length
+;;gdca-bridge-width;Bridge width
+;;gdca-frame-width;Frame width
+;;gdca-frame-depth;Frame depth
+;;gdca-lens-type;Lens type
+;;gdca-lens-vision;Lens vision
+;;gdca-sunglass-lens-tint-type-;Sunglass lens tint type 
+;;gdca-lens-uv-rating;Lens UV rating
+;;gdca-lens-uv-rating;Lens UV rating
+;;gdca-lens-colour;Lens colour
+;;gdca-lens-colour;Lens colour
+;;gdca-lens-material;Lens material
+;;gdca-lens-material;Lens material
+;;gdca-package-size;Package size
+;;gdca-rrp;rrp
+;;gdca-cost-price;cost price
+;;gdca-sgs-cost-price;SGS cost price
+;;gdca-vendor-name-and-vendor-code;vendor name and vendor code
+;;gdca-blended-cost-price;Blended cost price
+;;gdca-cross-selling-hints;Cross-selling hints
+;;gdca-weco-frame-id;WECO frame id
+;;gdca-channel-metadata;Channel metadata
+;;gdca-client-availability;Client availability
+;;gdca-hazard-information;Hazard information
+;;gdca-customs-info;Customs info
+;;gdca-country-of-origin;Country of origin
+;;gdca-fda-registered;FDA registered
+;;gdca-material-composition;Material composition
+;;gdca-shipping-restrictions;Shipping restrictions
+;;gdca-contact-lens-spherical-range;Contact lens spherical range
+;;gdca-contact-lens-cylindrical-range;Contact lens cylindrical range
+;;gdca-contact-lens-axis-range;Contact lens axis range
+;;gdca-contact-lens-wear-life;Contact lens wear life
+;;gdca-contact-lens-corrective-features;Contact lens corrective features
+;;gdca-contact-lens-diameter;Contact lens diameter
+;;gdca-number-of-items-per-product;Number of items per product
+;;gdca-contact-lens-material;Contact Lens material
+;;gdca-home-trial-threshold;Home trial threshold
+
+INSERT_UPDATE ClassAttributeAssignment;attributeType(code,itemtype(code)[default=ClassificationAttributeTypeEnum]);classificationAttribute(code,$classSystemVersion)[unique=true,forceWrite=true];classificationClass(code,$classCatalogVersion)[unique=true];unit(code,unitType,$classSystemVersion)[allownull=true];visibility(code,itemtype(code))[default=visible:ClassificationAttributeVisibilityEnum];multiValued[allownull=true]
+
+
+
+
+;string:ClassificationAttributeTypeEnum;gdca-skus;gdcls-base;;;true
+
+;number:ClassificationAttributeTypeEnum;gdca-box-height;gdcls-base;;;
+;number:ClassificationAttributeTypeEnum;gdca-box-width;gdcls-base;;;
+;number:ClassificationAttributeTypeEnum;gdca-box-depth;gdcls-base;;;
+;number:ClassificationAttributeTypeEnum;gdca-box-weight;gdcls-base;;;
+;string:ClassificationAttributeTypeEnum;gdca-manufacturer-colour;gdcls-base;;;true
+;string:ClassificationAttributeTypeEnum;gdca-base-colour;gdcls-base;;;true
+;string:ClassificationAttributeTypeEnum;gdca-descriptive-colour;gdcls-base;;;
+;number:ClassificationAttributeTypeEnum;gdca-lens-diameter;gdcls-frame-dimensions;;;
+;number:ClassificationAttributeTypeEnum;gdca-arm-length;gdcls-frame-dimensions;;;
+;number:ClassificationAttributeTypeEnum;gdca-bridge-width;gdcls-frame-dimensions;;;
+;number:ClassificationAttributeTypeEnum;gdca-frame-width;gdcls-frame-dimensions;;;
+;number:ClassificationAttributeTypeEnum;gdca-frame-depth;gdcls-frame-dimensions;;;
+;string:ClassificationAttributeTypeEnum;gdca-lens-type;gdcls-lens-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-lens-vision;gdcls-lens-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-sunglass-lens-tint-type-;gdcls-sunglasses-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-lens-uv-rating;gdcls-lens-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-lens-uv-rating;gdcls-sunglasses-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-lens-colour;gdcls-sunglasses-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-lens-colour;gdcls-lens-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-lens-material;gdcls-sunglasses-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-lens-material;gdcls-lens-features;;;
+;string:ClassificationAttributeTypeEnum;gdca-package-size;gdcls-shipping;;;
+
+
+
+
+;number:ClassificationAttributeTypeEnum;gdca-rrp;gdcls-base;;;
+;number:ClassificationAttributeTypeEnum;gdca-cost-price;gdcls-base;;;
+;number:ClassificationAttributeTypeEnum;gdca-sgs-cost-price;gdcls-base;;;
+;string:ClassificationAttributeTypeEnum;gdca-vendor-name-and-vendor-code;gdcls-supply-chain;;;
+
+
+
+
+
+
+
+
+
+;number:ClassificationAttributeTypeEnum;gdca-blended-cost-price;gdcls-base;;;
+
+
+
+
+
+
+
+;string:ClassificationAttributeTypeEnum;gdca-cross-selling-hints;gdcls-cross-selling;;;true
+
+
+
+
+;string:ClassificationAttributeTypeEnum;gdca-weco-frame-id;gdcls-frame-dimensions;;;
+
+
+
+
+;string:ClassificationAttributeTypeEnum;gdca-channel-metadata;gdcls-base;;;true
+
+
+
+;string:ClassificationAttributeTypeEnum;gdca-client-availability;gdcls-base;;;true
+
+;string:ClassificationAttributeTypeEnum;gdca-hazard-information;gdcls-base;;;
+;string:ClassificationAttributeTypeEnum;gdca-customs-info;gdcls-base;;;
+;string:ClassificationAttributeTypeEnum;gdca-country-of-origin;gdcls-base;;;
+;string:ClassificationAttributeTypeEnum;gdca-fda-registered;gdcls-base;;;
+;string:ClassificationAttributeTypeEnum;gdca-material-composition;gdcls-base;;;
+
+
+;string:ClassificationAttributeTypeEnum;gdca-shipping-restrictions;gdcls-base;;;true
+
+
+
+;number:ClassificationAttributeTypeEnum;gdca-contact-lens-spherical-range;gdcls-contact-lens;;;
+;number:ClassificationAttributeTypeEnum;gdca-contact-lens-cylindrical-range;gdcls-contact-lens;;;
+;number:ClassificationAttributeTypeEnum;gdca-contact-lens-axis-range;gdcls-contact-lens;;;
+;string:ClassificationAttributeTypeEnum;gdca-contact-lens-wear-life;gdcls-contact-lens;;;
+;string:ClassificationAttributeTypeEnum;gdca-contact-lens-corrective-features;gdcls-contact-lens;;;
+;number:ClassificationAttributeTypeEnum;gdca-contact-lens-diameter;gdcls-contact-lens;;;
+;number:ClassificationAttributeTypeEnum;gdca-number-of-items-per-product;gdcls-base;;;
+;string:ClassificationAttributeTypeEnum;gdca-contact-lens-material;gdcls-contact-lens;;;
+;number:ClassificationAttributeTypeEnum;gdca-home-trial-threshold;gdcls-base;;;

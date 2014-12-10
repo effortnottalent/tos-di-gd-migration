@@ -1,0 +1,86 @@
+$catalog-id=gdProductCatalog
+$catalog-version=Staged
+$catalogversion=catalogVersion(catalog(id[default=$catalog-id]),version[default=$catalog-version])[unique=true,default=$catalog-id:$catalog-version]
+$syncJobCode=sync $catalog-id:Staged->Online
+$ruleType=ruleType(code)[default='ANY']
+$lang=en
+
+INSERT_UPDATE BundleTemplateStatus;id[unique=true];status(code)[default=approved];$catalogversion
+;Status_GD_APPROVED
+
+INSERT BundleTemplate;id[unique=true];version[default=1.0][unique=true];$catalogversion;parentTemplate(id);status(id);name
+;gdbParent;;;;Status_GD_APPROVED;GD Parent Template
+;gdbChildFrames;;;gdbParent;Status_GD_APPROVED;GD Component - Frames
+;gdbChildLenses;;;gdbParent;Status_GD_APPROVED;GD Component - Lenses
+;gdbChildTints;;;gdbParent;Status_GD_APPROVED;GD Component - Tints
+;gdbChildCoatings;;;gdbParent;Status_GD_APPROVED;GD Component - Coatings
+
+INSERT_UPDATE PickExactlyNBundleSelectionCriteria;id[unique=true];n;$catalogversion
+;gdbChildFrames_PickExactly1;1
+;gdbChildLenses_PickExactly1;1
+
+INSERT_UPDATE PickNToMBundleSelectionCriteria;id[unique=true];n;m;$catalogversion
+;gdbChildCoatings_Pick0To1;0;1
+;gdbChildTints_Pick0To1;0;1
+
+UPDATE BundleTemplate;id[unique=true];version[default=1.0];bundleSelectionCriteria(id, $catalogversion);$catalogversion
+;gdbChildFrames;;gdbChildFrames_PickExactly1
+;gdbChildLenses;;gdbChildLenses_PickExactly1
+;gdbChildTints;;gdbChildTints_Pick0To1
+;gdbChildCoatings;;gdbChildCoatings_Pick0To1
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;productmanagergroup;cockpitgroup;;;;;;;
+
+# Access Rights for Products & Catalog;;;;;;;;;
+;;;;ItemSyncTimestamp;+;;;
+;;;;SyncItemJob;+;;;
+;;;;Type;+;;;
+;;;;Product;+;+;+;+;+;
+;;;;Category;+;+;+;+;+;
+;;;;variantType;+;+;+;+;+;
+;;;;Catalog;+;;;
+;;;;CatalogVersion;+;;;
+;;;;Media;+;+;+;+;+;
+;;;;MediaContainer;+;+;+;+;+;
+;;;;MediaFormat;+;+;+;+;+;
+;;;;MediaFolder;+;+;+;+;+;
+;;;;Vendor;+;+;+;+;+;
+;;;;StockLevel;+;+;+;+;+;
+;;;;Tax;+;+;+;+;+;
+;;;;TaxRow;+;+;+;+;+;
+;;;;PriceRow;+;+;+;+;+;
+;;;;ProductFeature;+;+;+;+;+;
+;;;;ProductReference;+;+;+;+;+;
+;;;;Warehouse;+;+;+;+;+;
+;;;;BundleTemplate;+;+;-;-;-;
+;;;;BundleTemplate.products;+;+;+;+;-;
+;;;;BundleTemplate.bundleSelectionCriteria;+;-;-;-;-;
+;;;;BundleTemplate.requiredBundleTemplates;+;-;-;-;-;
+;;;;BundleTemplate.dependentBundleTemplates;+;-;-;-;-;
+;;;;BundleTemplate.parentTemplate;+;-;-;-;-;
+;;;;BundleTemplate.childTemplates;+;-;-;-;-;
+;;;;BundleTemplate.status;+;-;-;-;-;
+;;;;ChangeProductPriceBundleRule;+;+;+;+;+;
+;;;;DisableProductBundleRule;+;+;+;+;+;
+;;;;BundleSelectionCriteria;+;-;-;-;-;
+;;;;BillingTime;+;-;-;-;-;
+;;;;ClassAttributeAssignment;+;+;+;+;+;
+;;;;ClassificationClass;+;+;+;+;+;
+;;;;ClassificationAttribute;+;+;+;+;+;
+;;;;ClassificationAttributeTypeEnum;+;+;+;+;+;
+;;;;ClassificationAttributeVisibilityEnum;+;+;+;+;+;
+;;;;ClassificationAttributeValueList;+;+;+;+;+;
+;;;;ClassificationAttributeUnit;+;+;+;+;+;
+
+$END_USERRIGHTS;;;;;
+
+
+#
+# Add BundleTemplate and BundleTemplateStatus as rootTypes to the synchronization
+# 
+#$sourceversion=sourceversion(catalog(id[default=$catalog-id]),version[default=Staged])[unique=true,default=$catalog-id:Staged]
+#$targetversion=targetversion(catalog(id[default=$catalog-id]),version[default=Online])[unique=true,default=$catalog-id:Online]
+#UPDATE CatalogVersionSyncJob;code[unique=true];roottypes(code)[mode=append];
+#;$syncJobCode;BundleTemplate,BundleTemplateStatus;
